@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+import math
+
+xmin = -3
+xmax = 3
+dt = 1
+X = []
+Y = []
+
+i = xmin
+while i<=xmax:
+    x = i
+    y = math.exp(-x*x)
+    X.append(x)
+    Y.append(y)
+    i=i+dt
+
+plt.plot(X,Y)
