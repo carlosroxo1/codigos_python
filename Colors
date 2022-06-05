@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import math
-import numpy
 
 a = 0
 da = 0.01
