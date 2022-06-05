@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+import math
+import numpy
+
+a = 0
+da = 0.01
+while a<1:
+    X=[]
+    Y=[]
+    x=-5
+    dx=0.01
+    while x<5:
+        y=a*math.cos(x)+(1-a)*math.sin(x)
+        X.append(x)
+        Y.append(y)
+        x=x+dx
+    color = plt.cm.jet(a)
+    plt.plot(X,Y,color=color)
+    a=a+da
