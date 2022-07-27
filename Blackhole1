@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 from mpl_toolkits import mplot3d
-N=60
+N=200
 theta=1.7
 X=[]
 Y=[]
@@ -16,12 +16,10 @@ Vz=[]
 C=[]
 m=1
 
-#if math.pow(c-math.sqrt(x*x+y*y),2)+math.pow(z*5)<1
-
-xmin = -10
-xmax = 10
-ymin = -10
-ymax = 10
+xmin = -8
+xmax = 8
+ymin = -8
+ymax = 8
 for x in range(N):
   for y in range(N):
     X.append(x*(xmax-xmin)/N+xmin)
@@ -37,34 +35,38 @@ for x in range(N):
 
 N = len(X)
 dt = 0.1
-for t in range(250):
-  for i in range(N):
-    x = X[i]
-    y = Y[i]
-    z = Z[i]
-    r = math.sqrt(math.pow(x,2)+math.pow(y,2)+math.pow(z,2))
-    a=m/math.pow(r,2)
+for i in range(N):
+  x = X[i]
+  y = Y[i]
+  z = Z[i]
+  vx = Vx[i]
+  vy = Vy[i]
+  vz = Vz[i]
+  for t in range(250):
+    r = math.sqrt(x*x+y*y+z*z)
+    a=m/(r*r)
     ax = -a*x/r
     ay = -a*y/r
     az = -a*z/r
-    Vx[i]=Vx[i]+ax*dt
-    Vy[i]=Vy[i]+ay*dt
-    Vz[i]=Vz[i]+az*dt
+    vx=vx+ax*dt
+    vy=vy+ay*dt
+    vz=vz+az*dt
     
-    v = math.sqrt(math.pow(Vx[i],2)+math.pow(Vy[i],2)+math.pow(Vz[i],2))
+    v = math.sqrt(vx*vx+vy*vy+vz*vz)
     if (v!=0 and v!=1):
-      Vx[i]=Vx[i]/v
-      Vy[i]=Vy[i]/v
-      Vz[i]=Vz[i]/v
+      vx=vx/v
+      vy=vy/v
+      vz=vz/v
 
-    X[i]=x+Vx[i]*dt
-    Y[i]=y+Vy[i]*dt
-    Z[i]=z+Vz[i]*dt
+    x=x+vx*dt
+    y=y+vy*dt
+    z=z+vz*dt
 
     x1 = x
     y1 = math.cos(theta)*y-math.sin(theta)*z
     z1 = math.sin(theta)*y+math.cos(theta)*z
     if math.pow(5-math.sqrt(x1*x1+y1*y1),2)+math.pow(z1*5,2)<4:
       C[i]=[0,1,0]
+      break
 
 plt.scatter(Xi,Yi,color=C)
